@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "lib": ["DOM", "ESNext", "ESNext.Array"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "ESNext",
+    "allowJs": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "strict": true,
+
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    "noImplicitAny": true,
+
+    "noEmit": true,
+    "composite": true,
+    "declaration": true, 
+  }
+}
