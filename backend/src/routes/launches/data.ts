@@ -1,4 +1,5 @@
-const launches = new Map()
+const launchesMap = new Map()
+let latestFlightNumber = 100
 
 const launch = {
   flightNumber: 100,
@@ -11,6 +12,20 @@ const launch = {
   success: true
 }
 
-launches.set(launch.flightNumber, launch)
+launchesMap.set(launch.flightNumber, launch)
+const data = Array.from(launchesMap.values())
 
-export default launches
+const addLaunch = launch => {
+  latestFlightNumber++
+
+  launchesMap.set(
+    latestFlightNumber,
+    Object.assign(launch,{
+      flightNumber: latestFlightNumber,
+      customer: ['ZTM', 'NASA'],
+      upcoming: true,
+      success: true
+    }))
+}
+
+export { data, addLaunch }
