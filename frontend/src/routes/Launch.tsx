@@ -1,11 +1,14 @@
 import { useMemo, Suspense } from 'react'
 
-const Launch = ({ data, isPendingLaunch, submitLaunch }) => {
+const Launch = props => {
+
+  const { planets, submitLaunch, isPendingLaunch } = props
+
   const selectorBody = useMemo(() => {
-    return data?.map(planet =>
+    return planets?.map(planet =>
       <option value={planet.kepler_name} key={planet.kepler_name}>{planet.kepler_name}</option>
     )
-  }, [data])
+  }, [planets])
 
   const today = new Date().toISOString().split('T')[0]
 

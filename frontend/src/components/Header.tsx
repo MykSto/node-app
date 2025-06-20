@@ -11,7 +11,7 @@ const Header = () => {
         <i className="material-icons">launch</i>
       </Link>
       <Link className='' to="/upcoming">
-        <i className="material-icons">update</i>
+        <i className="material-icons">upcoming</i>
       </Link>
       <Link className='' to="/history">
         <i className="material-icons">history</i>

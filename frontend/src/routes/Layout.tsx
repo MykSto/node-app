@@ -17,9 +17,7 @@ import Upcoming from './Upcoming'
 const Layout = () => {
 
   const planets = usePlanets()
-  const launches = useLaunches()
-
-  console.log('asdasd', launches)
+  const { launches, submitLaunch, isPendingLaunch } = useLaunches()
 
   return <div className='main-content'>
     <Header />
@@ -27,7 +25,7 @@ const Layout = () => {
       <Route path="/" element={<p>HOME</p>}>
         Home
       </Route>
-      <Route path="/launch" element={<Launch data={planets} />}>
+      <Route path="/launch" element={<Launch planets={planets} submitLaunch={submitLaunch} isPendingLaunch={isPendingLaunch} />}>
         Launch
       </Route>
       <Route path="/upcoming" element={<Upcoming launches={launches} />}>

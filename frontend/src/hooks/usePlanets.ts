@@ -1,7 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 
 import { httpGetPlanets } from './requests'
-
 function usePlanets() {
   const [planets, savePlanets] = useState([])
 
@@ -13,6 +12,7 @@ function usePlanets() {
 
   useMemo(() => {
     getPlanets()
+
   }, [getPlanets])
 
   return planets

@@ -10,7 +10,7 @@ async function startServer () {
   // TODO: should it be here?
   await data.loadPlanets()
 
-  server.listen(PORT, ()=>{
+  server.listen(PORT, () => {
     console.log(`PORT enabled at: ${PORT}...`)
   })
 }

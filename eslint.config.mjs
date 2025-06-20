@@ -15,6 +15,15 @@ export default tseslint.config(
       '@stylistic': stylistic
     },
     rules: {
+      '@stylistic/block-spacing': ['error'],
+      '@stylistic/keyword-spacing': ['error', {
+        before: true,
+        after: true
+      }],
+      '@stylistic/arrow-spacing': ['error', {
+        before: true,
+        after: true
+      }],
       '@stylistic/object-curly-spacing': ['error', 'always'],
       '@stylistic/semi': ['error', 'never'],
       '@stylistic/quotes': ['error', 'single'],
@@ -34,7 +43,7 @@ export default tseslint.config(
         exceptions: { 'Property': false },
         includeTabs: false
       }],
-      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+      '@typescript-eslint/consistent-type-definitions': ['off'],
       '@stylistic/padding-line-between-statements': [
         'error',
         { blankLine: 'any', prev: ['const', 'let'], next: ['const', 'let'] },

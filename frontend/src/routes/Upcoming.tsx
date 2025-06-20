@@ -13,9 +13,9 @@ const Upcoming = props => {
       .map(launch => {
         return <tr key={String(launch.flightNumber)}>
           <td>
-            <a onClick={() => abortLaunch(launch.flightNumber)}>
+            {/* <a onClick={() => abortLaunch(launch.flightNumber)}>
               ✖
-            </a>
+            </a> */}
           </td>
           <td>{launch.flightNumber}</td>
           <td>{new Date(launch.launchDate).toDateString()}</td>
@@ -24,7 +24,7 @@ const Upcoming = props => {
           <td>{launch.target}</td>
         </tr>
       })
-  }, [launches, abortLaunch])
+  }, [launches])
 
   return (
     <div>

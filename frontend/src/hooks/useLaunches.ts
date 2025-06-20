@@ -21,12 +21,13 @@ function useLaunches() {
 
   const submitLaunch = useCallback(async e => {
     e.preventDefault()
-    // setPendingLaunch(true);
+    setPendingLaunch(true)
     const data = new FormData(e.target)
     const launchDate = new Date(data.get('launch-day'))
     const mission = data.get('mission-name')
     const rocket = data.get('rocket-name')
     const target = data.get('planets-selector')
+
     const response = await httpSubmitLaunch({
       launchDate,
       mission,
@@ -34,16 +35,14 @@ function useLaunches() {
       target
     })
 
-    // TODO: Set success based on response.
-    const success = false
+    const success = response.ok
     if (success) {
       getLaunches()
       setTimeout(() => {
         setPendingLaunch(false)
-        // onSuccessSound()
       }, 800)
     } else {
-      // onFailureSound()
+      console.error('ERROR DURING THE SUBMIT')
     }
   }, [getLaunches])
 
@@ -54,9 +53,8 @@ function useLaunches() {
     const success = false
     if (success) {
       getLaunches()
-      // onAbortSound()
     } else {
-      // onFailureSound()
+      console.error('ERROR DURING ABORT')
     }
   }, [getLaunches])
 
