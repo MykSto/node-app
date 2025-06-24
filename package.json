@@ -16,6 +16,7 @@
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
     "@types/express": "^4.17.21",
+    "@types/jest": "^30.0.0",
     "@types/node": "~18.16.9",
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/ui": "^3.0.0",
@@ -24,6 +25,7 @@
     "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.0.0",
+    "jest-environment-jsdom": "^30.0.2",
     "jiti": "2.4.2",
     "nx": "21.1.2",
     "typescript": "^5.7.3",
@@ -35,7 +37,8 @@
     "build": "nx run-many -t build",
     "start:dev": "nx run-many -t start",
     "start:prod": "nx run --project=frontend build && nx run --project=backend start",
-    "lint": "yarn eslint . --fix"
+    "lint": "yarn eslint . --fix",
+    "test:backend": "NODE_ENV=test nx run --project=backend test"
   },
   "packageManager": "yarn@4.1.0",
   "workspaces": [
@@ -45,6 +48,7 @@
   "dependencies": {
     "csv-parse": "^5.6.0",
     "express": "^4.21.2",
+    "jest": "^30.0.2",
     "nx": "^21.1.2",
     "tslib": "^2.3.0"
   }

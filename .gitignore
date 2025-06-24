@@ -6,3 +6,5 @@ vitest.config.*.timestamp*
 **/.yarn/
 
 .DS_Store
+
+coverage/**/*

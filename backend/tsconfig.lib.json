@@ -4,7 +4,8 @@
     "strict": true,
     "outDir": "dist",
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
     "rootDir": "src",
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo"
