@@ -1,7 +1,7 @@
 import Layout from './routes/Layout'
 
 const App = () => {
-  return(
+  return (
     <Layout/>
   )
 }

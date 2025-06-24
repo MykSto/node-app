@@ -6,7 +6,6 @@ import {
 import usePlanets from '../hooks/usePlanets'
 import useLaunches from '../hooks/useLaunches'
 
-// import Centered from '../components/Centered'
 import Header from '../components/Header'
 // import Footer from '../components/Footer'
 
@@ -17,7 +16,7 @@ import Upcoming from './Upcoming'
 const Layout = () => {
 
   const planets = usePlanets()
-  const { launches, submitLaunch, isPendingLaunch } = useLaunches()
+  const { launches, submitLaunch, isPendingLaunch, abortLaunch } = useLaunches()
 
   return <div className='main-content'>
     <Header />
@@ -25,13 +24,28 @@ const Layout = () => {
       <Route path="/" element={<p>HOME</p>}>
         Home
       </Route>
-      <Route path="/launch" element={<Launch planets={planets} submitLaunch={submitLaunch} isPendingLaunch={isPendingLaunch} />}>
+      <Route path="/launch" element={
+        <Launch
+          planets={planets}
+          submitLaunch={submitLaunch}
+          isPendingLaunch={isPendingLaunch}
+        />
+      }>
         Launch
       </Route>
-      <Route path="/upcoming" element={<Upcoming launches={launches} />}>
+      <Route path="/upcoming" element={
+        <Upcoming
+          launches={launches}
+          abortLaunch={abortLaunch}
+          entered={''}
+        />
+      }>
         Upcoming
       </Route>
-      <Route path="/history" element={<History/>}>
+      <Route path="/history" element={
+        <History launches={launches}
+        />
+      }>
         History
       </Route>
     </Routes>

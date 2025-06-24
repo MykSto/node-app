@@ -1,8 +1,9 @@
 import { useMemo } from 'react'
+import { Launches } from '../types'
 
-const History = props => {
+const History: React.FC<{ launches: Launches }> = ({ launches }) => {
   const tableBody = useMemo(() => {
-    return props.launches?.filter(launch => !launch.upcoming)
+    return launches?.filter(launch => !launch.upcoming)
       .map(launch => {
         return <tr key={String(launch.flightNumber)}>
           <td>
@@ -14,10 +15,10 @@ const History = props => {
           <td>{new Date(launch.launchDate).toDateString()}</td>
           <td>{launch.mission}</td>
           <td>{launch.rocket}</td>
-          <td>{launch.customers?.join(', ')}</td>
+          <td>{launch.customer?.join(', ')}</td>
         </tr>
       })
-  }, [props.launches])
+  }, [launches])
 
   return <article id="history">
     <p>History of mission launches including SpaceX launches starting from the year 2006.</p>

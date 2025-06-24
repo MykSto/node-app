@@ -19,11 +19,12 @@ function useLaunches() {
     getLaunches()
   }, [getLaunches])
 
-  const submitLaunch = useCallback(async e => {
+  const submitLaunch = useCallback(async (e: React.SyntheticEvent) => {
     e.preventDefault()
     setPendingLaunch(true)
-    const data = new FormData(e.target)
-    const launchDate = new Date(data.get('launch-day'))
+
+    const data = new FormData(e.target as HTMLFormElement)
+    const launchDate = new Date(data.get('launch-day') as string | number)
     const mission = data.get('mission-name')
     const rocket = data.get('rocket-name')
     const target = data.get('planets-selector')
@@ -35,7 +36,8 @@ function useLaunches() {
       target
     })
 
-    const success = response.ok
+    const success = response.success
+
     if (success) {
       getLaunches()
       setTimeout(() => {
@@ -46,12 +48,11 @@ function useLaunches() {
     }
   }, [getLaunches])
 
-  const abortLaunch = useCallback(async id => {
+  const abortLaunch = useCallback(async (id: number) => {
     const response = await httpAbortLaunch(id)
+    const success = response.success
 
-    // TODO: Set success based on response.
-    const success = false
-    if (success) {
+    if (!success) {
       getLaunches()
     } else {
       console.error('ERROR DURING ABORT')

@@ -1,4 +1,5 @@
 const launchesMap = new Map()
+
 let latestFlightNumber = 100
 
 type Launch = Record<string, string | number | Date | string[] | boolean>
@@ -15,7 +16,26 @@ const launch = {
 } satisfies Launch
 
 launchesMap.set(launch.flightNumber, launch)
-const data = Array.from(launchesMap.values())
+
+const getAllLaunches = () => {
+  return Array.from(launchesMap.values())
+}
+
+const abortLaunch = (launchId: number) => {
+  const aborted = launchesMap.get(launchId)
+
+  aborted.upcoming = false
+  aborted.success = false
+
+  return aborted
+}
+
+const launchExists = (id: number) => {
+  return {
+    exists: launchesMap.has(id),
+    id
+  }
+}
 
 const addLaunch = (launch: Launch) => {
   latestFlightNumber++
@@ -28,6 +48,12 @@ const addLaunch = (launch: Launch) => {
       upcoming: true,
       success: true
     }))
+
 }
 
-export default { data, addLaunch }
+export {
+  getAllLaunches,
+  addLaunch,
+  launchExists,
+  abortLaunch
+}

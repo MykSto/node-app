@@ -1,5 +1,5 @@
 import { parse } from 'csv-parse'
-import fs from'fs'
+import fs from 'fs'
 import path from 'path'
 
 const planets: string[] = []

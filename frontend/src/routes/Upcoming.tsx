@@ -1,21 +1,22 @@
 import { useMemo } from 'react'
+import { Launches } from '../types'
 
-const Upcoming = props => {
-  const {
-    entered,
-    launches,
-    classes,
-    abortLaunch
-  } = props
+type UpcomingProps = {
+  entered: boolean
+  launches: Launches
+  abortLaunch: (flight: number) => Promise<void>
+}
+
+const Upcoming: React.FC<UpcomingProps> = ({ entered, launches, abortLaunch }) => {
 
   const tableBody = useMemo(() => {
     return launches?.filter(launch => launch.upcoming)
       .map(launch => {
         return <tr key={String(launch.flightNumber)}>
           <td>
-            {/* <a onClick={() => abortLaunch(launch.flightNumber)}>
+            <a onClick={() => abortLaunch(launch.flightNumber)}>
               ✖
-            </a> */}
+            </a>
           </td>
           <td>{launch.flightNumber}</td>
           <td>{new Date(launch.launchDate).toDateString()}</td>

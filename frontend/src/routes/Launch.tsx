@@ -1,9 +1,12 @@
-import { useMemo, Suspense } from 'react'
+import { useMemo } from 'react'
 
-const Launch = props => {
+type LaunchProps = {
+  planets: Record<string, string>[]
+  submitLaunch: (e: React.SyntheticEvent) => Promise<void>
+  isPendingLaunch: boolean
+}
 
-  const { planets, submitLaunch, isPendingLaunch } = props
-
+const Launch: React.FC<LaunchProps> = ({ planets, submitLaunch, isPendingLaunch }) => {
   const selectorBody = useMemo(() => {
     return planets?.map(planet =>
       <option value={planet.kepler_name} key={planet.kepler_name}>{planet.kepler_name}</option>
@@ -32,15 +35,15 @@ const Launch = props => {
         <select id="planets-selector" name="planets-selector">
           {selectorBody}
         </select>
-        <button
-          // show={props.entered}
-          type="submit"
-          // layer="success"
-          disabled={isPendingLaunch}>
-          Launch Mission ✔
-        </button>
-        {isPendingLaunch &&
-        <Suspense fallback={<p>Loading...</p>} />
+
+        {isPendingLaunch ?
+          <p>Loading...</p> :
+          <button
+            type="submit"
+            disabled={isPendingLaunch}
+          >
+            Launch Mission ✔
+          </button>
         }
       </form>
     </div>
