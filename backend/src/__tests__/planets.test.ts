@@ -1,9 +1,19 @@
+import request from 'supertest'
+import app from '../app'
+
 describe('Planets API', () => {
-  it('should return planets list', () => {
-    expect(2).toEqual(2)
+
+  const launchApi = '/api/planets'
+
+  it('should respond', async() => {
+    const planetsResponse = await request(app).get(launchApi)
+
+    expect(planetsResponse.status).toBe(200)
   })
-  // it('', () => {})
-  // it('', () => {})
-  // it('', () => {})
-  // it('', () => {})
+
+  it('should return data', async() => {
+    const planetsResponse = await request(app).get(launchApi)
+
+    expect(planetsResponse.body).toEqual([])
+  })
 })

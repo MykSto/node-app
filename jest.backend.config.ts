@@ -1,4 +1,7 @@
 import type { Config } from 'jest'
+import { createDefaultPreset } from 'ts-jest'
+
+const tsJestTransformCfg = createDefaultPreset().transform
 
 export default {
   preset: './jest-preset.js',
@@ -9,5 +12,6 @@ export default {
   testMatch: [
     '<rootDir>/backend/src/__tests__/**/*.test.(ts|tsx)'
   ],
-  testEnvironment: 'jest-environment-jsdom'
+  testEnvironment: 'node',
+  transform: { ...tsJestTransformCfg }
 } satisfies Config

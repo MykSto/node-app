@@ -36,10 +36,10 @@ const addNewLaunch = (req: Body, res: Response) => {
   const requireKeys = ['mission', 'rocket', 'target', 'launchDate'] as const
 
   const launchKeys = Object.keys(launch)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const match = launchKeys.filter((e: any) => !requireKeys.includes(e)).join(', ')
+
+  const match = launchKeys.filter((e: string) => !requireKeys.includes(e as keyof typeof launch)).join(', ')
   const missing = requireKeys.filter((e: string) => !launchKeys.includes(e)).join(', ')
-  const empty = requireKeys.filter((e: string) => launchKeys.includes(e) && e === '').join(', ')
+  const empty = requireKeys.filter((e: string) => launchKeys.includes(e) && !launch[e as keyof typeof launch]).join(', ')
   const invalidDate = isNaN(launch.launchDate as unknown as number)
 
   if (empty) {
