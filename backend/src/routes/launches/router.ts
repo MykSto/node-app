@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express'
-import { addLaunch, getAllLaunches as launchData, launchExists, abortLaunch } from './data'
+import { addLaunch, getAllLaunches as launchData, launchExists, abortLaunch, validationHandler } from './data'
 
 const router = express.Router()
 
@@ -31,45 +31,15 @@ interface Body extends Request {
 }
 
 const addNewLaunch = (req: Body, res: Response) => {
-
   const launch = req.body
-  const requireKeys = ['mission', 'rocket', 'target', 'launchDate'] as const
+  const { status, body } = validationHandler(launch)
 
-  const launchKeys = Object.keys(launch)
-
-  const match = launchKeys.filter((e: string) => !requireKeys.includes(e as keyof typeof launch)).join(', ')
-  const missing = requireKeys.filter((e: string) => !launchKeys.includes(e)).join(', ')
-  const empty = requireKeys.filter((e: string) => launchKeys.includes(e) && !launch[e as keyof typeof launch]).join(', ')
-  const invalidDate = isNaN(launch.launchDate as unknown as number)
-
-  if (empty) {
-    void res.status(400).json({
-      error: `Empty properties: ${empty}`
-    })
+  if (body.error) {
+    void res.status(status).json(body)
+  } else {
+    addLaunch(launch)
+    void res.status(201).json(launch)
   }
-
-  if (match) {
-    void res.status(400).json({
-      error: `Properties not allowed: ${match}`
-    })
-  }
-
-  if (missing) {
-    void res.status(400).json({
-      error: `Missing properties: ${missing}`
-    })
-  }
-
-  if (!invalidDate) {
-    launch.launchDate = new Date(launch.launchDate)
-
-    void res.status(400).json({
-      error: `Incorrect Date format: ${launch.launchDate}`
-    })
-  }
-
-  addLaunch(launch)
-  void res.status(201).json(launch)
 }
 
 router

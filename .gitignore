@@ -8,3 +8,5 @@ vitest.config.*.timestamp*
 .DS_Store
 
 coverage/**/*
+
+**/dist/**/*

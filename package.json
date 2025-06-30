@@ -39,7 +39,8 @@
   "scripts": {
     "build": "nx run-many -t build",
     "start:dev": "nx run-many -t start",
-    "start:prod": "nx run --project=frontend build && nx run --project=backend start",
+    "start:prod": "nx run --project=frontend build && nx run start --project=backend",
+    "start:cluster": "nx run --project=frontend build && nx run cluster --project=backend",
     "lint": "yarn eslint . --fix",
     "test:backend": "NODE_ENV=test nx run --project=backend test"
   },

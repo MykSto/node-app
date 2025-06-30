@@ -16,7 +16,7 @@ import Upcoming from './Upcoming'
 const Layout = () => {
 
   const planets = usePlanets()
-  const { launches, submitLaunch, isPendingLaunch, abortLaunch } = useLaunches()
+  const { launches, submitLaunch, isPendingLaunch, abortLaunch, error } = useLaunches()
 
   return <div className='main-content'>
     <Header />
@@ -26,6 +26,7 @@ const Layout = () => {
       </Route>
       <Route path="/launch" element={
         <Launch
+          error={error}
           planets={planets}
           submitLaunch={submitLaunch}
           isPendingLaunch={isPendingLaunch}
@@ -37,7 +38,7 @@ const Layout = () => {
         <Upcoming
           launches={launches}
           abortLaunch={abortLaunch}
-          entered={''}
+          entered={false}
         />
       }>
         Upcoming

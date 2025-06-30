@@ -5,7 +5,8 @@
   "scripts": {
     "build": "../node_modules/.bin/tsc",
     "start": "../node_modules/.bin/nodemon src/server.ts",
-    "test": "../node_modules/.bin/jest --config ../jest.backend.config.ts --runInBand"
+    "test": "../node_modules/.bin/jest --config ../jest.backend.config.ts --runInBand",
+    "cluster": "../node_modules/.bin/pm2 start src/server.ts -i max"
   },
   "devDependencies": {
     "@types/cors": "^2",
@@ -18,6 +19,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "pm2": "^6.0.8"
   }
 }

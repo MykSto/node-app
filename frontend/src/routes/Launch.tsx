@@ -4,9 +4,10 @@ type LaunchProps = {
   planets: Record<string, string>[]
   submitLaunch: (e: React.SyntheticEvent) => Promise<void>
   isPendingLaunch: boolean
+  error: string
 }
 
-const Launch: React.FC<LaunchProps> = ({ planets, submitLaunch, isPendingLaunch }) => {
+const Launch: React.FC<LaunchProps> = ({ planets, submitLaunch, isPendingLaunch, error }) => {
   const selectorBody = useMemo(() => {
     return planets?.map(planet =>
       <option value={planet.kepler_name} key={planet.kepler_name}>{planet.kepler_name}</option>
@@ -14,6 +15,8 @@ const Launch: React.FC<LaunchProps> = ({ planets, submitLaunch, isPendingLaunch 
   }, [planets])
 
   const today = new Date().toISOString().split('T')[0]
+
+  const errorClass = Object.keys(error).length ? 'error-input' : ''
 
   return (
     <div>
@@ -26,18 +29,17 @@ const Launch: React.FC<LaunchProps> = ({ planets, submitLaunch, isPendingLaunch 
 
       <form onSubmit={submitLaunch} style={{ display: 'inline-grid', gridTemplateColumns: 'auto auto', gridGap: '10px 20px' }}>
         <label htmlFor="launch-day">Launch Date</label>
-        <input type="date" id="launch-day" name="launch-day" min={today} max="2040-12-31" defaultValue={today} />
+        <input className={errorClass} type="date" id="launch-day" name="launch-day" min={today} max="2040-12-31" defaultValue={today} />
         <label htmlFor="mission-name">Mission Name</label>
-        <input type="text" id="mission-name" name="mission-name" />
+        <input className={errorClass} type="text" id="mission-name" name="mission-name" />
         <label htmlFor="rocket-name">Rocket Type</label>
-        <input type="text" id="rocket-name" name="rocket-name" defaultValue="Explorer IS1" />
+        <input className={errorClass}type="text" id="rocket-name" name="rocket-name" defaultValue="Explorer IS1" />
         <label htmlFor="planets-selector">Destination Exoplanet</label>
         <select id="planets-selector" name="planets-selector">
           {selectorBody}
         </select>
 
-        {isPendingLaunch ?
-          <p>Loading...</p> :
+        {isPendingLaunch ? (error ? <button type="submit">Retry</button> : <p>loading...</p>) :
           <button
             type="submit"
             disabled={isPendingLaunch}
@@ -45,6 +47,7 @@ const Launch: React.FC<LaunchProps> = ({ planets, submitLaunch, isPendingLaunch 
             Launch Mission ✔
           </button>
         }
+        {error}
       </form>
     </div>
   )

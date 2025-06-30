@@ -9,6 +9,7 @@ import {
 function useLaunches() {
   const [launches, saveLaunches] = useState([])
   const [isPendingLaunch, setPendingLaunch] = useState(false)
+  const [error, setError] = useState('')
 
   const getLaunches = useCallback(async () => {
     const fetchedLaunches = await httpGetLaunches()
@@ -43,8 +44,10 @@ function useLaunches() {
       setTimeout(() => {
         setPendingLaunch(false)
       }, 800)
+      setError('')
     } else {
-      console.error('ERROR DURING THE SUBMIT')
+      setError(response.error)
+      throw Error('ERROR DURING THE SUBMIT')
     }
   }, [getLaunches])
 
@@ -55,7 +58,7 @@ function useLaunches() {
     if (!success) {
       getLaunches()
     } else {
-      console.error('ERROR DURING ABORT')
+      throw Error('ERROR DURING ABORT')
     }
   }, [getLaunches])
 
@@ -63,7 +66,8 @@ function useLaunches() {
     launches,
     isPendingLaunch,
     submitLaunch,
-    abortLaunch
+    abortLaunch,
+    error
   }
 }
 

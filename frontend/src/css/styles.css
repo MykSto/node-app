@@ -18,3 +18,7 @@
 input, select {
   border: 0.2rem solid black
 }
+
+.error-input {
+  border: 0.2rem solid red
+}
