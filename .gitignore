@@ -10,3 +10,5 @@ vitest.config.*.timestamp*
 coverage/**/*
 
 **/dist/**/*
+
+**/.env
