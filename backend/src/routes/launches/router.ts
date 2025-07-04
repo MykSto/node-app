@@ -30,31 +30,30 @@ const getLaunches = async (_req: Request,
 }
 
 const deleteLaunch = async (req: Request, res: Response) => {
-
   const launchId = Number(req.params.id)
-
-  const { exists, id } = launchExists(launchId)
+  const { exists, id } = await launchExists(launchId)
 
   if (!exists){
     void res.status(404).json({
       error: `Launch does not exist under: ${id}`
     })
+  } else {
+    const { body, status } = await abortLaunch(launchId)
+
+    void res.status(status).json(body)
   }
-
-  const data = abortLaunch(launchId)
-
-  void res.status(200).json(data)
 }
 
-const addNewLaunch = (req: Body, res: Response) => {
+const addNewLaunch = async (req: Body, res: Response) => {
   const launch = req.body
   const { status, body } = validationHandler(launch)
 
   if (body.error) {
     void res.status(status).json(body)
   } else {
-    addLaunch(launch)
-    void res.status(201).json(launch)
+    await addLaunch(launch)
+
+    void res.status(status).json(launch)
   }
 }
 

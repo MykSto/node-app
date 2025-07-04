@@ -1,9 +1,7 @@
 import launches from '../../schemas/launches'
 import planets from '../../schemas/planets'
 
-const launchesMap = new Map()
-
-let latestFlightNumber = 100
+const latestFlightNumber = 100
 
 type Launch = Record<string, string | number | Date | string[] | boolean>
 
@@ -18,8 +16,15 @@ export const launch = {
   success: true
 } satisfies Launch
 
-export const saveLaunch = async (launch: Launch) => {
+const getFlightNumber = async() => {
+  const launch = await launches.findOne().sort('-flightNumber')
 
+  if (!launch?.flightNumber) return latestFlightNumber
+
+  return launch?.flightNumber
+}
+
+export const saveLaunch = async (launch: Launch) => {
   const planet = await planets.findOne({
     keplerName: launch.target
   })
@@ -34,8 +39,8 @@ export const saveLaunch = async (launch: Launch) => {
   }
 
   return {
-    status: 200,
-    body: await launches.updateOne(
+    status: 201,
+    body: await launches.findOneAndUpdate(
       {
         flightNumber: launch.flightNumber
       }, launch, {
@@ -45,32 +50,50 @@ export const saveLaunch = async (launch: Launch) => {
   }
 }
 
-const getAllLaunches = async () => {
+export const getAllLaunches = async () => {
   return await launches.find({}, {
     _id: 0, '__v': 0
   })
 }
 
-const abortLaunch = (launchId: number) => {
-  const aborted = launchesMap.get(launchId)
+export const abortLaunch = async (launchId: number) => {
+  const launch = await launches.updateOne({
+    flightNumber: launchId
+  }, {
+    upcoming: false,
+    success: false
+  })
 
-  aborted.upcoming = false
-  aborted.success = false
+  if (launch.modifiedCount !== 1 ) {
+    return {
+      status: 400,
+      body: {
+        error: 'Mission abort failed'
+      }
+    }
+  }
 
-  return aborted
+  return {
+    status: 200,
+    body: {
+      ok: true
+    }
+  }
 }
 
-const launchExists = (id: number) => {
+export const launchExists = async(id: number) => {
+  const launch = await launches.findOne({
+    flightNumber: id
+  })
+
   return {
-    exists: launchesMap.has(id),
+    exists: launch,
     id
   }
 }
 
-const validationHandler = (launch: Launch) => {
-
+export const validationHandler = (launch: Launch) => {
   const requireKeys = ['mission', 'rocket', 'target', 'launchDate']
-
   const launchKeys = Object.keys(launch)
 
   const match = launchKeys.filter((e: string) => !requireKeys.includes(e)).join(', ')
@@ -117,29 +140,20 @@ const validationHandler = (launch: Launch) => {
   }
 
   return {
-    status: 200,
+    status: 201,
     body: {}
   }
 }
 
-const addLaunch = (launch: Launch) => {
+export const addLaunch = async(launch: Launch) => {
+  const newFlightNumber = await getFlightNumber() + 1
 
-  latestFlightNumber++
+  const newLaunch = Object.assign(launch,{
+    flightNumber: newFlightNumber,
+    customers: ['ZTM', 'NASA'],
+    upcoming: true,
+    success: true
+  })
 
-  launchesMap.set(latestFlightNumber,
-    Object.assign(launch,{
-      flightNumber: latestFlightNumber,
-      customer: ['ZTM', 'NASA'],
-      upcoming: true,
-      success: true
-    }))
-
-}
-
-export {
-  getAllLaunches,
-  addLaunch,
-  launchExists,
-  abortLaunch,
-  validationHandler
+  await saveLaunch(newLaunch)
 }
