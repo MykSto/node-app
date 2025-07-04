@@ -3,6 +3,7 @@ import pluginReact from 'eslint-plugin-react'
 import stylistic from '@stylistic/eslint-plugin'
 import eslint from '@eslint/js'
 import { globalIgnores } from 'eslint/config'
+import lines from 'eslint-plugin-import-newlines'
 
 export default tseslint.config(
   globalIgnores(['./**/dist']),
@@ -12,10 +13,21 @@ export default tseslint.config(
   pluginReact.configs.flat['jsx-runtime'],
   {
     plugins: {
-      '@stylistic': stylistic
+      '@stylistic': stylistic,
+      '@lines': lines
     },
     rules: {
+      '@lines/enforce': 'error',
+      '@stylistic/object-curly-newline': ['error', {
+        'ObjectExpression': {
+          'minProperties': 1,
+          consistent: true
+        }
+      }],
       '@stylistic/block-spacing': ['error'],
+      '@stylistic/function-paren-newline': ['error', {
+        minItems: 3
+      }],
       '@stylistic/keyword-spacing': ['error', {
         before: true,
         after: true
@@ -40,21 +52,41 @@ export default tseslint.config(
       }],
       '@stylistic/eol-last': ['error'],
       '@stylistic/no-multi-spaces': ['error', {
-        exceptions: { 'Property': false },
+        exceptions: {
+          'Property': false
+        },
         includeTabs: false
       }],
       '@typescript-eslint/consistent-type-definitions': ['off'],
       '@stylistic/padding-line-between-statements': [
         'error',
-        { blankLine: 'any', prev: ['const', 'let'], next: ['const', 'let'] },
-        { blankLine: 'always', prev: 'directive', next: 'import' },
-        { blankLine: 'always', prev: 'block-like', next: '*' },
-        { blankLine: 'always', prev: '*', next: 'return' },
-        { blankLine: 'always', prev: 'multiline-const', next: '*' },
-        { blankLine: 'always', prev: ['interface', 'type'], next: '*' },
-        { blankLine: 'always', prev: '*', next: ['interface', 'type'] },
-        { blankLine: 'always', prev: 'import', next: ['export'] },
-        { blankLine: 'always', prev: 'import', next: ['const', 'let', 'type'] }
+        {
+          blankLine: 'any', prev: ['const', 'let'], next: ['const', 'let']
+        },
+        {
+          blankLine: 'always', prev: 'directive', next: 'import'
+        },
+        {
+          blankLine: 'always', prev: 'block-like', next: '*'
+        },
+        {
+          blankLine: 'always', prev: '*', next: 'return'
+        },
+        {
+          blankLine: 'always', prev: 'multiline-const', next: '*'
+        },
+        {
+          blankLine: 'always', prev: ['interface', 'type'], next: '*'
+        },
+        {
+          blankLine: 'always', prev: '*', next: ['interface', 'type']
+        },
+        {
+          blankLine: 'always', prev: 'import', next: ['export']
+        },
+        {
+          blankLine: 'always', prev: 'import', next: ['const', 'let', 'type']
+        }
       ]
     }
   }
