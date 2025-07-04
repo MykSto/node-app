@@ -11,7 +11,9 @@ app.
     origin: 'http://localhost:5050'
   }))
   .use(morgan('combined'))
-  .use(express.static(path.join(__dirname, '../../', 'frontend/dist')))
+  .use(express.static(path.join(
+    __dirname, '../../', 'frontend/dist'
+  )))
   .use(express.json())
   .use('/api', api())
 

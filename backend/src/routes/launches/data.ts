@@ -1,24 +1,54 @@
+import launches from '../../schemas/launches'
+import planets from '../../schemas/planets'
+
 const launchesMap = new Map()
 
 let latestFlightNumber = 100
 
 type Launch = Record<string, string | number | Date | string[] | boolean>
 
-const launch = {
+export const launch = {
   flightNumber: 100,
   mission: 'Kepler Exploration X',
   rocket: 'Explorer IS1',
   launchDate: new Date('December 27, 2030'),
   target: 'Kepler-442 b',
-  customer: ['ZTM', 'NASA'],
+  customers: ['ZTM', 'NASA'],
   upcoming: true,
   success: true
 } satisfies Launch
 
-launchesMap.set(launch.flightNumber, launch)
+export const saveLaunch = async (launch: Launch) => {
 
-const getAllLaunches = () => {
-  return Array.from(launchesMap.values())
+  const planet = await planets.findOne({
+    keplerName: launch.target
+  })
+
+  if (!planet) {
+    return {
+      status: 404,
+      body: {
+        error: `Planet does not exist: ${launch.target}`
+      }
+    }
+  }
+
+  return {
+    status: 200,
+    body: await launches.updateOne(
+      {
+        flightNumber: launch.flightNumber
+      }, launch, {
+        upsert: true
+      }
+    )
+  }
+}
+
+const getAllLaunches = async () => {
+  return await launches.find({}, {
+    _id: 0, '__v': 0
+  })
 }
 
 const abortLaunch = (launchId: number) => {
@@ -96,8 +126,7 @@ const addLaunch = (launch: Launch) => {
 
   latestFlightNumber++
 
-  launchesMap.set(
-    latestFlightNumber,
+  launchesMap.set(latestFlightNumber,
     Object.assign(launch,{
       flightNumber: latestFlightNumber,
       customer: ['ZTM', 'NASA'],

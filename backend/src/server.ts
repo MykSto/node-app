@@ -1,6 +1,6 @@
 import app from './app'
 import http from 'http'
-import data from './routes/planets/data'
+import { loadPlanets } from './routes/planets/data'
 import mongoose from 'mongoose'
 
 const PORT = 9000
@@ -20,7 +20,7 @@ mongoose.connection.on('error', err => {
 async function startServer () {
   await mongoose.connect(MONGO_URL)
 
-  await data.loadPlanets()
+  await loadPlanets()
 
   server.listen(PORT, () => {
     console.log(`PORT enabled at: ${PORT}...`)

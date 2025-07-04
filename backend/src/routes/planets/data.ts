@@ -1,8 +1,11 @@
 import { parse } from 'csv-parse'
 import fs from 'fs'
 import path from 'path'
+import planets from '../../schemas/planets'
 
-const planets: string[] = []
+type DataType = {
+  kepler_name: string
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isHabitablePlanet(planet: any) {
@@ -12,27 +15,52 @@ function isHabitablePlanet(planet: any) {
     && planet['koi_prad'] < 1.6
 }
 
-const loadPlanets = () => {
+export const loadPlanets = () => {
   return new Promise((res, rej) => {
 
-    fs.createReadStream(path.join(__dirname, '../../../data/', 'kepler_data.csv'))
+    fs.createReadStream(path.join(
+      __dirname, '../../../data/', 'kepler_data.csv'
+    ))
       .pipe(parse({
         comment: '#',
         columns: true
       }))
-      .on('data', data => {
+      .on('data', async data => {
         if (isHabitablePlanet(data)) {
-          planets.push(data)
+          await savePlanets(data)
         }
       })
       .on('error', err => {
         console.log(err)
         rej(err)
       })
-      .on('end', () => {
-        res(console.log(`${planets.length} habitable planets found!`))
+      .on('end', async() => {
+        const planetLenght = (await getPlanets()).length
+        res(console.log(`${planetLenght} habitable planets found!`))
       })
   })
 }
 
-export default { loadPlanets, planets }
+export const getPlanets = async() => {
+  return await planets.find({}, {
+    '_id': 0, '__v': 0
+  })
+}
+
+export const savePlanets = async (data: DataType) => {
+  try {
+    await planets.updateOne(
+      {
+        keplerName: data.kepler_name
+      }, {
+        keplerName: data.kepler_name
+      }, {
+        upsert: true
+      }
+    )
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.error('Could not save planet', error)
+  }
+
+}

@@ -1,10 +1,32 @@
 import express, { Request, Response } from 'express'
-import { addLaunch, getAllLaunches as launchData, launchExists, abortLaunch, validationHandler } from './data'
+import {
+  addLaunch,
+  getAllLaunches as launchData,
+  launchExists,
+  abortLaunch,
+  validationHandler,
+  launch,
+  saveLaunch
+} from './data'
 
 const router = express.Router()
 
-const getLaunches = async (_req: Request, res: Response) => {
-  void res.status(200).json(launchData())
+type Keys = 'mission' | 'rocket' | 'target' | 'launchDate'
+
+interface Body extends Request { body: Record<Keys, string | Date> }
+
+const getLaunches = async (_req: Request,
+  res: Response) => {
+
+  const { status, body } = await saveLaunch(launch)
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  if (body.error) {
+    void res.status(status).json(body)
+  } else {
+    void res.status(200).json(await launchData())
+  }
 }
 
 const deleteLaunch = async (req: Request, res: Response) => {
@@ -24,12 +46,6 @@ const deleteLaunch = async (req: Request, res: Response) => {
   void res.status(200).json(data)
 }
 
-type Keys = 'mission' | 'rocket' | 'target' | 'launchDate'
-
-interface Body extends Request {
-  body: Record<Keys, string | Date>
-}
-
 const addNewLaunch = (req: Body, res: Response) => {
   const launch = req.body
   const { status, body } = validationHandler(launch)
@@ -47,4 +63,6 @@ router
   .post('/', addNewLaunch)
   .delete('/:id', deleteLaunch)
 
-export { addNewLaunch, getLaunches, router }
+export {
+  addNewLaunch, getLaunches, router
+}
