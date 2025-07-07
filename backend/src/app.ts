@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Response, Request } from 'express'
 import cors from 'cors'
 import { api } from './api'
 import path from 'path'
@@ -11,10 +11,15 @@ app.
     origin: 'http://localhost:5050'
   }))
   .use(morgan('combined'))
+  .use(express.json())
   .use(express.static(path.join(
     __dirname, '../../', 'frontend/dist'
   )))
-  .use(express.json())
   .use('/api', api())
+  .all('/{*splat}', (_req: Request, res: Response) => {
+    res.sendFile(path.join(
+      __dirname, '../../', 'frontend/dist', 'index.html'
+    ))
+  })
 
 export default app
