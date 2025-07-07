@@ -15,7 +15,7 @@ const History: React.FC<{ launches: Launches }> = ({ launches }) => {
           <td>{new Date(launch.launchDate).toDateString()}</td>
           <td>{launch.mission}</td>
           <td>{launch.rocket}</td>
-          <td>{launch.customer?.join(', ')}</td>
+          <td>{launch.customers?.join(', ')}</td>
         </tr>
       })
   }, [launches])

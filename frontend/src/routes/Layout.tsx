@@ -1,7 +1,4 @@
-import {
-  Routes,
-  Route
-} from 'react-router'
+import { Routes, Route } from 'react-router'
 
 import usePlanets from '../hooks/usePlanets'
 import useLaunches from '../hooks/useLaunches'
@@ -16,6 +13,7 @@ import Upcoming from './Upcoming'
 const Layout = () => {
 
   const planets = usePlanets()
+
   const { launches, submitLaunch, isPendingLaunch, abortLaunch, error } = useLaunches()
 
   return <div className='main-content'>

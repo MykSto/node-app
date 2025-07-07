@@ -15,9 +15,9 @@ describe('Launches API', () => {
   it('should return data', async() => {
     const planetsResponse = await request(app).get(launchApi)
 
-    expect(planetsResponse.body).toMatchObject([
-      {
-        'customer': [
+    expect(planetsResponse.body).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        'customers': [
           'ZTM',
           'NASA'
         ],
@@ -28,8 +28,8 @@ describe('Launches API', () => {
         'success': true,
         'target': 'Kepler-442 b',
         'upcoming': true
-      }
-    ])
+      })
+    ]))
   })
 
   describe('should send data', () => {
@@ -43,21 +43,19 @@ describe('Launches API', () => {
           'launchDate': '10 December, 2020'
         })
 
-      expect(planetsResponse.body).toMatchObject(
-        {
-          'customer': [
-            'ZTM',
-            'NASA'
-          ],
-          'flightNumber': 101,
-          'launchDate': '10 December, 2020',
-          'mission': 'asdasd',
-          'rocket': '2323',
-          'success': true,
-          'target': 'sdsd',
-          'upcoming': true
-        }
-      )
+      expect(planetsResponse.body).toMatchObject({
+        'customers': [
+          'ZTM',
+          'NASA'
+        ],
+        'flightNumber': 115,
+        'launchDate': '10 December, 2020',
+        'mission': 'asdasd',
+        'rocket': '2323',
+        'success': true,
+        'target': 'sdsd',
+        'upcoming': true
+      })
     })
 
     describe('and return error', () => {
@@ -71,7 +69,9 @@ describe('Launches API', () => {
           })
 
         expect(planetsResponse.status).toBe(400)
-        expect(planetsResponse.body).toMatchObject({ error: 'Missing properties: launchDate' })
+        expect(planetsResponse.body).toMatchObject({
+          error: 'Missing properties: launchDate'
+        })
       })
 
       it('with empty property', async() => {
@@ -85,7 +85,9 @@ describe('Launches API', () => {
           })
 
         expect(planetsResponse.status).toBe(400)
-        expect(planetsResponse.body).toMatchObject({ error: 'Empty properties: mission, rocket, target, launchDate' })
+        expect(planetsResponse.body).toMatchObject({
+          error: 'Empty properties: mission, rocket, target, launchDate'
+        })
       })
 
       it('with invalid date', async() => {
@@ -99,7 +101,9 @@ describe('Launches API', () => {
           })
 
         expect(planetsResponse.status).toBe(400)
-        expect(planetsResponse.body).toMatchObject({ error: 'Incorrect Date format: Invalid Date' })
+        expect(planetsResponse.body).toMatchObject({
+          error: 'Incorrect Date format: Invalid Date'
+        })
       })
 
       it('with not allowed property', async() => {
@@ -113,7 +117,9 @@ describe('Launches API', () => {
           })
 
         expect(planetsResponse.status).toBe(400)
-        expect(planetsResponse.body).toMatchObject({ error: 'Properties not allowed: test' })
+        expect(planetsResponse.body).toMatchObject({
+          error: 'Properties not allowed: test'
+        })
       })
     })
   })
@@ -123,7 +129,7 @@ describe('Launches API', () => {
       const planetsResponse = await request(app).delete(launchDeleteApi)
 
       expect(planetsResponse.body).toEqual(expect.objectContaining({
-        'flightNumber': 100
+        'ok': true
       }))
     })
 

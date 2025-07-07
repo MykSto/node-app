@@ -5,7 +5,7 @@
   "scripts": {
     "build": "../node_modules/.bin/tsc",
     "start": "../node_modules/.bin/nodemon src/server.ts",
-    "test": "../node_modules/.bin/jest --config ../jest.backend.config.ts --runInBand",
+    "test": "../node_modules/.bin/jest --config ../jest.backend.config.ts",
     "cluster": "../node_modules/.bin/pm2 start src/server.ts -i max"
   },
   "devDependencies": {

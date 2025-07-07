@@ -14,6 +14,10 @@ describe('Planets API', () => {
   it('should return data', async() => {
     const planetsResponse = await request(app).get(launchApi)
 
-    expect(planetsResponse.body).toEqual([])
+    expect(planetsResponse.body).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        'keplerName': 'Kepler-296 A f'
+      })
+    ]))
   })
 })

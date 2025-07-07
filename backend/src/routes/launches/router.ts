@@ -31,6 +31,7 @@ const getLaunches = async (_req: Request,
 
 const deleteLaunch = async (req: Request, res: Response) => {
   const launchId = Number(req.params.id)
+
   const { exists, id } = await launchExists(launchId)
 
   if (!exists){

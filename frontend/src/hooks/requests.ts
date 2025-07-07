@@ -19,12 +19,10 @@ async function httpGetLaunches() {
 
 }
 
-async function httpSubmitLaunch(launch: {
-  launchDate: Date;
+async function httpSubmitLaunch(launch: { launchDate: Date;
   mission: FormDataEntryValue | null;
   rocket: FormDataEntryValue | null;
-  target: FormDataEntryValue | null }
-) {
+  target: FormDataEntryValue | null }) {
   return await fetch(`${API_URL}/launches`,{
     method: 'POST',
     headers: {
@@ -36,7 +34,9 @@ async function httpSubmitLaunch(launch: {
       return res.json()
     })
     .catch(err => {
-      return { ok: false, error: err }
+      return {
+        ok: false, error: err
+      }
     })
 }
 
@@ -48,7 +48,9 @@ async function httpAbortLaunch(id: number) {
       return res.json()
     })
     .catch(err => {
-      return { ok: false, error: err }
+      return {
+        ok: false, error: err
+      }
     })
 }
 

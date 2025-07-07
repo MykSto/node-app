@@ -97,8 +97,11 @@ export const validationHandler = (launch: Launch) => {
   const launchKeys = Object.keys(launch)
 
   const match = launchKeys.filter((e: string) => !requireKeys.includes(e)).join(', ')
+
   const missing = requireKeys.filter((e: string) => !launchKeys.includes(e)).join(', ')
+
   const empty = requireKeys.filter((e: string) => launchKeys.includes(e) && !launch[e as keyof typeof launch]).join(', ')
+
   const invalidDate = isNaN(launch.launchDate as unknown as number)
 
   if (empty) {

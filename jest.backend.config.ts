@@ -13,5 +13,7 @@ export default {
     '<rootDir>/backend/src/__tests__/**/*.test.(ts|tsx)'
   ],
   testEnvironment: 'node',
-  transform: { ...tsJestTransformCfg }
+  transform: {
+    ...tsJestTransformCfg
+  }
 } satisfies Config

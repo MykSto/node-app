@@ -10,8 +10,7 @@ type LaunchProps = {
 const Launch: React.FC<LaunchProps> = ({ planets, submitLaunch, isPendingLaunch, error }) => {
   const selectorBody = useMemo(() => {
     return planets?.map(planet =>
-      <option value={planet.keplerName} key={planet.keplerName}>{planet.keplerName}</option>
-    )
+      <option value={planet.keplerName} key={planet.keplerName}>{planet.keplerName}</option>)
   }, [planets])
 
   const today = new Date().toISOString().split('T')[0]
@@ -27,7 +26,9 @@ const Launch: React.FC<LaunchProps> = ({ planets, submitLaunch, isPendingLaunch,
         <li>Effective stellar flux &gt; 0.36 times Earth's value and &lt; 1.11 times Earth's value</li>
       </ul>
 
-      <form onSubmit={submitLaunch} style={{ display: 'inline-grid', gridTemplateColumns: 'auto auto', gridGap: '10px 20px' }}>
+      <form onSubmit={submitLaunch} style={{
+        display: 'inline-grid', gridTemplateColumns: 'auto auto', gridGap: '10px 20px'
+      }}>
         <label htmlFor="launch-day">Launch Date</label>
         <input className={errorClass} type="date" id="launch-day" name="launch-day" min={today} max="2040-12-31" defaultValue={today} />
         <label htmlFor="mission-name">Mission Name</label>
