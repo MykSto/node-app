@@ -2060,15 +2060,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/json@npm:^0.11.0":
-  version: 0.11.0
-  resolution: "@eslint/json@npm:0.11.0"
+"@eslint/json@npm:^0.12.0":
+  version: 0.12.0
+  resolution: "@eslint/json@npm:0.12.0"
   dependencies:
     "@eslint/core": "npm:^0.12.0"
     "@eslint/plugin-kit": "npm:^0.2.7"
     "@humanwhocodes/momoa": "npm:^3.3.4"
     natural-compare: "npm:^1.4.0"
-  checksum: 10c0/9161cb6f540e032f13141905dec8cd744b996856018e7668387489d675e3a5ad2bf71d3d77210373de3e88198631e37a3a7b7287031b01e7cf6dab700c39ae13
+  checksum: 10c0/68fb045a8fde1fd96c6fa05b7102000328fa1786f935aea007b32a0e178445aebdddb6efeb4518b16bcaa9d819e426ef29eb8fc69d0f1fec720c550be22f631a
   languageName: node
   linkType: hard
 
@@ -4136,6 +4136,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/config@npm:^3.3.5":
+  version: 3.3.5
+  resolution: "@types/config@npm:3.3.5"
+  checksum: 10c0/32f57d8bd8a6bd79d29a7f26f945b537f745dbadc33cd8eaad98f6e466e0175fb90ae37952352fa6509a0f5de212b9bd0af320bc3bb5f8579af6affe5e3410f6
+  languageName: node
+  linkType: hard
+
 "@types/connect@npm:*":
   version: 3.4.38
   resolution: "@types/connect@npm:3.4.38"
@@ -5991,6 +5998,15 @@ __metadata:
   version: 0.0.1
   resolution: "concat-map@npm:0.0.1"
   checksum: 10c0/c996b1cfdf95b6c90fee4dae37e332c8b6eb7d106430c17d538034c0ad9a1630cb194d2ab37293b1bdd4d779494beee7786d586a50bd9376fd6f7bcc2bd4c98f
+  languageName: node
+  linkType: hard
+
+"config@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "config@npm:4.0.0"
+  dependencies:
+    json5: "npm:^2.2.3"
+  checksum: 10c0/8dee527a8aefa02eebc7cabcb793608619010cf9c8645aae1dff9dba3ee41ff49790ad8b7267952b7a6d9a1bae5e724e0fa9f3da44be1f9b8abb035df1d7a361
   languageName: node
   linkType: hard
 
@@ -10500,7 +10516,7 @@ __metadata:
   resolution: "nasa@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.24.0"
-    "@eslint/json": "npm:^0.11.0"
+    "@eslint/json": "npm:^0.12.0"
     "@nx/esbuild": "npm:21.1.3"
     "@nx/eslint": "npm:21.1.2"
     "@nx/js": "npm:21.1.3"
@@ -10511,12 +10527,14 @@ __metadata:
     "@swc-node/register": "npm:~1.9.1"
     "@swc/core": "npm:~1.5.7"
     "@swc/helpers": "npm:~0.5.11"
+    "@types/config": "npm:^3.3.5"
     "@types/express": "npm:^4.17.21"
     "@types/jest": "npm:^30.0.0"
     "@types/node": "npm:~18.16.9"
     "@types/supertest": "npm:^6.0.3"
     "@vitejs/plugin-react": "npm:^4.3.4"
     "@vitest/ui": "npm:^3.0.0"
+    config: "npm:^4.0.0"
     csv-parse: "npm:^5.6.0"
     esbuild: "npm:^0.19.2"
     eslint: "npm:^9.24.0"

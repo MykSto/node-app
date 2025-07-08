@@ -3,12 +3,14 @@ import cors from 'cors'
 import { api } from './api'
 import path from 'path'
 import morgan from 'morgan'
+import config from 'config'
 
 const app = express()
+const origin = config.get('local.fe.url') as string
 
 app.
   use(cors({
-    origin: 'http://localhost:5050'
+    origin
   }))
   .use(morgan('combined'))
   .use(express.json())

@@ -1,4 +1,6 @@
-const API_URL = 'http://localhost:9000/api'
+import config from 'config'
+
+const API_URL = config.get('api.url')
 
 async function httpGetPlanets() {
   return await fetch(`${API_URL}/planets`).then(res => {

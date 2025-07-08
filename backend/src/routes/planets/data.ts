@@ -7,6 +7,7 @@ type DataType = {
   kepler_name: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isHabitablePlanet(planet: any) {
   return planet['koi_disposition'] === 'CONFIRMED'
     && planet['koi_insol'] > 0.36

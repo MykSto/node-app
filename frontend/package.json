@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "../node_modules/.bin/vite build",
-    "start": "../node_modules/.bin/vite dev"
+    "start": "NODE_CONFIG_DIR=../config/ ../node_modules/.bin/vite dev"
   },
   "devDependencies": {
     "@types/node": "^22.13.1",
