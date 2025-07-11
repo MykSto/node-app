@@ -4,10 +4,10 @@ import {
   getAllLaunches as launchData,
   launchExists,
   abortLaunch,
-  validationHandler,
-  launch,
-  saveLaunch
+  validationHandler
 } from './data'
+
+import { pagination } from '../../utils/pagination'
 
 const router = express.Router()
 
@@ -15,18 +15,15 @@ type Keys = 'mission' | 'rocket' | 'target' | 'launchDate'
 
 interface Body extends Request { body: Record<Keys, string | Date> }
 
-const getLaunches = async (_req: Request,
+interface Limit extends Request { query: Record<string, string> }
+
+const getLaunches = async (req: Limit,
   res: Response) => {
 
-  const { status, body } = await saveLaunch(launch)
+  const { skip, limit } = pagination(req.query)
+  const launchList = await launchData(skip, limit)
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  if (body.error) {
-    void res.status(status).json(body)
-  } else {
-    void res.status(200).json(await launchData())
-  }
+  void res.status(200).json(launchList)
 }
 
 const deleteLaunch = async (req: Request, res: Response) => {

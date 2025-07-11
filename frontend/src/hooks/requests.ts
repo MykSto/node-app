@@ -1,15 +1,13 @@
-import config from 'config'
-
-const API_URL = config.get('api.url')
+const API_BASE_URL = process.env.API_BASE_URL
 
 async function httpGetPlanets() {
-  return await fetch(`${API_URL}/planets`).then(res => {
+  return await fetch(`${API_BASE_URL}/planets`).then(res => {
     return res.json()
   })
 }
 
 async function httpGetLaunches() {
-  return await fetch(`${API_URL}/launches`, {
+  return await fetch(`${API_BASE_URL}/launches`, {
     method: 'GET'
   })
     .then(res => {
@@ -25,7 +23,7 @@ async function httpSubmitLaunch(launch: { launchDate: Date;
   mission: FormDataEntryValue | null;
   rocket: FormDataEntryValue | null;
   target: FormDataEntryValue | null }) {
-  return await fetch(`${API_URL}/launches`,{
+  return await fetch(`${API_BASE_URL}/launches`,{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -43,7 +41,7 @@ async function httpSubmitLaunch(launch: { launchDate: Date;
 }
 
 async function httpAbortLaunch(id: number) {
-  return await fetch(`${API_URL}/launches/${id}`,{
+  return await fetch(`${API_BASE_URL}/launches/${id}`,{
     method: 'DELETE'
   })
     .then(res => {
