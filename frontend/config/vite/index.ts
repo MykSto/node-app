@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import path from 'path'
 
 const config = defineConfig(({ mode }) => {
 
@@ -27,7 +28,15 @@ const config = defineConfig(({ mode }) => {
       host: '0.0.0.0',
       port: 5050,
       proxy: {
-        '/api': 'http://localhost:9000'
+        '/api': 'https://localhost:9000'
+      },
+      https: {
+        cert: path.join(
+          __dirname, '../../../certs/', 'cert.pem'
+        ),
+        key: path.join(
+          __dirname, '../../../certs/', 'key.pem'
+        )
       }
     }
   }

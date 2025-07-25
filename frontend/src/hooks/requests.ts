@@ -1,5 +1,11 @@
 const API_BASE_URL = process.env.API_BASE_URL
 
+async function googleSignIn() {
+  return await fetch(`${API_BASE_URL}/auth/google`).then(res => {
+    return console.log('RESPONSE', res)
+  })
+}
+
 async function httpGetPlanets() {
   return await fetch(`${API_BASE_URL}/planets`).then(res => {
     return res.json()
@@ -23,6 +29,7 @@ async function httpSubmitLaunch(launch: { launchDate: Date;
   mission: FormDataEntryValue | null;
   rocket: FormDataEntryValue | null;
   target: FormDataEntryValue | null }) {
+
   return await fetch(`${API_BASE_URL}/launches`,{
     method: 'POST',
     headers: {
@@ -58,5 +65,6 @@ export {
   httpGetPlanets,
   httpGetLaunches,
   httpSubmitLaunch,
-  httpAbortLaunch
+  httpAbortLaunch,
+  googleSignIn
 }

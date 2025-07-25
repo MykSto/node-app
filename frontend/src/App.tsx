@@ -1,8 +1,13 @@
 import Layout from './routes/Layout'
+import Login from './routes/Login'
 
 const App = () => {
   return (
-    <Layout/>
+    <>
+      <Login />
+      <Layout/>
+    </>
+
   )
 }
 

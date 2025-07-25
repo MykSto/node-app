@@ -13,7 +13,6 @@ import Upcoming from './Upcoming'
 const Layout = () => {
 
   const planets = usePlanets()
-
   const { launches, submitLaunch, isPendingLaunch, abortLaunch, error } = useLaunches()
 
   return <div className='main-content'>
