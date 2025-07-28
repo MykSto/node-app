@@ -9,6 +9,7 @@
     "cluster": "NODE_CONFIG_DIR=../config/ ../node_modules/.bin/pm2 start src/server.ts -i max"
   },
   "devDependencies": {
+    "@types/cookie-session": "^2",
     "@types/cors": "^2",
     "@types/express": "^5",
     "@types/morgan": "^1.9.10",
@@ -19,10 +20,11 @@
     "vite-node": "^3.1.4"
   },
   "dependencies": {
+    "cookie-session": "^2.1.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "morgan": "^1.10.0",
-    "passport": "^0.7.0",
+    "passport": "^0.5.0",
     "passport-google-oauth20": "^2.0.0",
     "pm2": "^6.0.8"
   }
