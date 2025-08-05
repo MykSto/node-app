@@ -9,17 +9,20 @@ router
   .get('/google', passport.authenticate('google', {
     scope: ['email']
   }))
-  .get(
-    '/google/callback',
+  .get('/google/callback',
     passport.authenticate('google', {
       failureRedirect: '/',
       successRedirect: feRoute,
       session: true
-    }),
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    (_req: Request, _res: Response) => {
-      console.log('Google has an answer!')
-    }
-  )
+    }))
+  .get('/user', (req: Request, res: Response) => {
+
+    const session = req?.session?.passport?.user
+
+    void res.status(201).json({
+      verified: !!session
+    })
+
+  })
 
 export { router }

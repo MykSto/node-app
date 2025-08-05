@@ -1,7 +1,7 @@
 import express from 'express'
 import { router as PlanetsRouter } from './routes/planets/router'
 import { router as LaunchRouter } from './routes/launches/router'
-import { router as GoogleRouter } from './auth/google'
+import { router as GoogleRouter } from './routes/auth/google'
 
 export const api = () => {
   const router = express.Router()

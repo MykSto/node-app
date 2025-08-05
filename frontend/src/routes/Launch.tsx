@@ -14,7 +14,6 @@ const Launch: React.FC<LaunchProps> = ({ planets, submitLaunch, isPendingLaunch,
   }, [planets])
 
   const today = new Date().toISOString().split('T')[0]
-
   const errorClass = Object.keys(error).length ? 'error-input' : ''
 
   return (

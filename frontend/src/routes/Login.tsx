@@ -1,14 +1,15 @@
-import { Link } from 'react-router'
-import { googleSignIn } from '../hooks/requests'
+import { useNavigate } from 'react-router'
 
-const Login = () => {
+const Login = ({ url }: { url: string }) => {
+
+  const nav = useNavigate()
 
   return (
-    <>
-      {/* <button onClick={async() => await googleSignIn()}>try</button> */}
-      <Link to={'https://localhost:9000/api/auth/google'}>Google Sign In</Link>
-    </>
-
+    <button onClick={() => {
+      nav(url)
+      // TODO: should be something better than this
+      window.location.reload()
+    }}>Google Sign In</button>
   )
 }
 

@@ -1,19 +1,19 @@
-const API_BASE_URL = process.env.API_BASE_URL
+const API_PROXY = '/api'
 
-async function googleSignIn() {
-  return await fetch(`${API_BASE_URL}/auth/google`).then(res => {
-    return console.log('RESPONSE', res)
+export async function googleSignIn() {
+  return await fetch(`${API_PROXY}/auth/user`).then(res => {
+    return res.json()
   })
 }
 
 async function httpGetPlanets() {
-  return await fetch(`${API_BASE_URL}/planets`).then(res => {
+  return await fetch(`${API_PROXY}/planets`).then(res => {
     return res.json()
   })
 }
 
 async function httpGetLaunches() {
-  return await fetch(`${API_BASE_URL}/launches`, {
+  return await fetch(`${API_PROXY}/launches`, {
     method: 'GET'
   })
     .then(res => {
@@ -22,7 +22,6 @@ async function httpGetLaunches() {
     .then(res => res.sort((a: { flightNumber: number }, b: { flightNumber: number }) => {
       return a.flightNumber - b.flightNumber
     }))
-
 }
 
 async function httpSubmitLaunch(launch: { launchDate: Date;
@@ -30,7 +29,7 @@ async function httpSubmitLaunch(launch: { launchDate: Date;
   rocket: FormDataEntryValue | null;
   target: FormDataEntryValue | null }) {
 
-  return await fetch(`${API_BASE_URL}/launches`,{
+  return await fetch(`${API_PROXY}/launches`,{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -48,7 +47,7 @@ async function httpSubmitLaunch(launch: { launchDate: Date;
 }
 
 async function httpAbortLaunch(id: number) {
-  return await fetch(`${API_BASE_URL}/launches/${id}`,{
+  return await fetch(`${API_PROXY}/launches/${id}`,{
     method: 'DELETE'
   })
     .then(res => {
@@ -65,6 +64,5 @@ export {
   httpGetPlanets,
   httpGetLaunches,
   httpSubmitLaunch,
-  httpAbortLaunch,
-  googleSignIn
+  httpAbortLaunch
 }

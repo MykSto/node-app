@@ -1,14 +1,11 @@
 import express, { Request, RequestHandler, Response } from 'express'
-import cors from 'cors'
 import { api } from './api'
 import path from 'path'
 import morgan from 'morgan'
-import config from 'config'
 import cookieSession from 'cookie-session'
 import passportMiddleware from './passport'
 
 const app = express()
-const origin = config.get('local.fe.url') as string
 
 app
   .use(cookieSession({
@@ -16,10 +13,24 @@ app
     maxAge: 24 * 60 * 60 * 1000,
     keys: ['secretkey', 'secretkeyforrotation']
   }))
+  .use((
+    req, _res, next
+  ) => {
+    if (req.session && !req.session.regenerate) {
+      req.session.regenerate = (cb: () => void) => {
+        cb()
+      }
+    }
+
+    if (req.session && !req.session.save) {
+      req.session.save = (cb: () => void) => {
+        cb()
+      }
+    }
+
+    next()
+  })
   .use(passportMiddleware as unknown as RequestHandler)
-  .use(cors({
-    origin
-  }))
   .use(morgan('combined'))
   .use(express.json())
   .use(express.static(path.join(

@@ -17,8 +17,6 @@ const verifyCallback = (
   _accessToken: string, _refreshToken: string,
   _params: GoogleCallbackParameters, profile: Profile, done: VerifyCallback
 ) => {
-  console.log('Google profile', profile)
-
   done(null, profile)
 }
 
