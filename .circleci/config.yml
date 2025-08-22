@@ -1,0 +1,38 @@
+version: 2.1
+
+jobs:
+    lint:
+        docker:
+            - image: cimg/node:24.6.0
+        steps:
+            - checkout
+            - run:
+                  name: Corepack enable
+                  command: corepack enable --install-directory ~/bin
+            - run:
+                  name: Install dependencies
+                  command: yarn install --immutable
+            - run:
+                  name: Lint code
+                  command: yarn lint
+    build:
+        docker:
+            - image: cimg/node:24.6.0
+        steps:
+            - checkout
+            - run:
+                  name: Corepack enable
+                  command: corepack enable --install-directory ~/bin
+            - run:
+                  name: Install dependencies
+                  command: yarn install --immutable
+            - run:
+                  name: Build
+                  command: yarn nx run-many -t build --verbose
+
+workflows:
+  version: 2
+  lint-workflow:
+      jobs:
+          - build
+          - lint
