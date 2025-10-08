@@ -2,9 +2,9 @@ import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
-import fs from 'fs'
+import { readFileSync } from 'node:fs'
 
-const certPath =path.join(__dirname, '../../../certs/')
+const certPath = path.join(__dirname, '../../../certs/')
 
 const config = defineConfig(({ mode }) => {
 
@@ -22,7 +22,8 @@ const config = defineConfig(({ mode }) => {
     build: {
       outDir: 'dist',
       sourcemap: false,
-      emptyOutDir: true
+      emptyOutDir: true,
+      reportCompressedSize: true
     },
     resolve: {
       extensions: ['.ts', '.tsx']
@@ -40,8 +41,8 @@ const config = defineConfig(({ mode }) => {
         }
       },
       https: {
-        cert: fs.readFileSync(`${certPath}cert.pem`),
-        key: fs.readFileSync(`${certPath}key.pem`)
+        cert: process.env.MY_VARONE || readFileSync(`${certPath}cert.pem`),
+        key: process.env.MY_VARTWO || readFileSync(`${certPath}key.pem`)
       }
     }
   }

@@ -14,7 +14,8 @@ jobs:
                   command: yarn install --immutable
             - run:
                   name: Lint code
-                  command: yarn lint
+                  command: ./node_modules/.bin/nx run-many -t=lint --verbose
+
     build:
         docker:
             - image: cimg/node:24.6.0

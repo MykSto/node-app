@@ -7,6 +7,7 @@ type UpcomingProps = {
   abortLaunch: (flight: number) => Promise<void>
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Upcoming: React.FC<UpcomingProps> = ({ entered, launches, abortLaunch }) => {
 
   const tableBody = useMemo(() => {
