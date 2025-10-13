@@ -12,10 +12,6 @@
     "react-router": "^7.5.3",
     "tailwindcss": "4.1.4"
   },
-  "scripts": {
-    "build": "../node_modules/.bin/vite build",
-    "start": "NODE_ENV=development ../node_modules/.bin/vite dev"
-  },
   "devDependencies": {
     "@types/node": "^22.13.1",
     "@types/react": "^19.0.8"

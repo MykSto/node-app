@@ -14,16 +14,6 @@
       "dependsOn": [
         "^start"
       ]
-    },
-    "@nx/esbuild:esbuild": {
-      "cache": true,
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "default",
-        "^default"
-      ]
     }
   },
   "plugins": [
@@ -36,7 +26,7 @@
     {
       "plugin": "@nx/vite/plugin",
       "options": {
-        "buildTargetName": "vite:build",
+        "buildTargetName": "build",
         "testTargetName": "test",
         "serveTargetName": "serve",
         "devTargetName": "start",

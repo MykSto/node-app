@@ -1,15 +1,16 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "strict": true,
-    "strictNullChecks": true,
-    "outDir": "dist",
     "types": [
       "node",
       "jest"
     ],
-    "rootDir": "src",
-    "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo"
+    "outDir": "dist",
+    "baseUrl": ".",
+    "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
+    "emitDeclarationOnly": false,
+    "importHelpers": true,
+    "noImplicitOverride": true
   },
   "include": [
     "src/**/*.ts"

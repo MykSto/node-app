@@ -3,7 +3,6 @@
   "version": "1.0.2",
   "private": true,
   "scripts": {
-    "build": "../node_modules/.bin/tsc",
     "start": "NODE_CONFIG_DIR=../config/ ../node_modules/.bin/nodemon src/server.ts",
     "test": "NODE_CONFIG_DIR=../config/ ../node_modules/.bin/jest --config ../jest.backend.config.ts",
     "cluster": "NODE_CONFIG_DIR=../config/ ../node_modules/.bin/pm2 start src/server.ts -i max"
